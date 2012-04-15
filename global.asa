@@ -1,0 +1,43 @@
+Session.Timeout=600
+<SCRIPT RUNAT=server LANGUAGE="VBScript">
+
+sub Application_OnStart()
+	Session.Timeout=240
+
+
+'	REM defaults to remain with application!!!
+	Application("BusinessName") = "Unison AgSoft"
+	Application("CopyRight") = "&copy; " & year(now())
+	Application("ProgramName") = "Applied Spray Program"
+
+	Application("GrowerNumber") = "Username"
+    Application("PackerNumber") = "Packer #"
+
+
+'	REM defaults to be modified upon installation.
+'	REM note these defaults will not display as they have html begin/end tags (e.g. "<",">")
+'		though this behavour can be fixed by using: 
+'	Application("CLIENT_NAME") = "<CLIENT_NAME>"
+'	Application("CONTACT_EMAIL") = "<CONTACT_EMAIL>"
+'	Application("CONTACT_NAME") = "<CONTACT_NAME>"
+'	Application("CONTACT_PHONE") = "<CONTACT_PHONE>"
+'	Application("HOST_WEBSITE") = "<HOST_WEBSITE>"
+
+	Application("CLIENT_NAME") = "Unison AgSoft"
+	Application("CONTACT_EMAIL") = "kent@gorgetec.com"
+	Application("CONTACT_NAME") = "Kent Heighton"
+	Application("CONTACT_PHONE") = "541-386-7409"
+	Application("HOST_WEBSITE") = "http://spray.gorgetec.com/"
+
+	Application("Logo_Left") = "<img src=""images/logo_left.gif"" alt=""logo_left.gif 156x149"" width=""156"" height=""149"" border=""0"">"
+	Application("Logo_Right") = "<img src=""images/logo_right.gif"" alt=""logo_right.gif 594x107"" width=""594"" height=""107"" border=""0"">"
+
+	'Application("ConnStr") = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=\\webstore\files\http\hrgsa.org\data\SprayProgram9.mdb;User Id=admin;Password=;"
+    Application("ConnStr") = "PROVIDER=SQLOLEDB;SERVER=WEBSERV1;Trusted_Connection=yes;DATABASE=agspray_dev;"
+
+'\\webstore\files\http\hrgsa.org\data\SprayProgram9.mdb
+end sub
+
+
+
+</SCRIPT> 

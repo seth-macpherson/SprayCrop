@@ -1,0 +1,95 @@
+.placeholder {}
+
+H1.apptitle{font-family:arial black;font-size:24px;color: #013166;text-decoration:underline;}
+H2.apptitle{font-family:arial black;font-size:18px;color: #013166;}
+	
+H1{font-family : Arial, Helvetica, sans-serif; font-size : 18px;
+	font-weight: bold;	color: 013166;  display:inline;}
+
+H1 a {color: 993300;}	
+H1 a:visited {color: 993300;}	
+H1 a:hover {color: 993300;}	
+H1 a:active {color: 993300;}
+
+H2{font-family : Verdana, Arial, Helvetica, sans-serif; font-size : 11px;
+	font-weight: bold;
+	color: 000000; display:inline;}
+
+H2 a {color: 993300;}	
+H2 a:visited {color: 993300;}	
+H2 a:hover {color: 993300;}	
+H2 a:active {color: 993300;}
+
+H3{font-family : Verdana, Arial, Helvetica, sans-serif; font-size : 11px;
+	font-weight: bold;
+	color: 003366; display:inline;}
+
+H3 a {color: 003366;}	
+H3 a:visited {color: 003366;}	
+H3 a:hover {color: 003366;}	
+H3 a:active {color: 003366;}
+
+	
+.subtitle {font-family : Verdana, Arial, Helvetica, sans-serif; font-size : 11px; line-height : 13px;
+	font-weight: bold;
+	color: 003366;}
+	
+.error {font-family : Verdana, Arial, Helvetica, sans-serif; font-size : 11px; line-height : 13px;
+	font-weight: bold;
+	color: cc0000;}
+		
+.critical {font-family : Verdana, Arial, Helvetica, sans-serif; font-size : 11px; line-height : 13px;
+	font-weight: normal;
+	color: aa0000;}	
+
+a {color: 000000;font-family : Verdana, Arial, Helvetica, sans-serif; font-size : 12px; line-height : 14px;}	
+a:visited {color: 000000;}	
+a:hover {color: CC0000;}	
+a:active {color: 000000;}	
+
+a.navtext {color:#003366;font-family : Verdana, Arial, Helvetica, sans-serif; font-size : 12px; font-weight: bold; text-decoration:none;}	
+a.navtext:visited {color:#003366;text-decoration:none;}	
+a.navtext:hover {color:beige;text-decoration:underline;}	
+a.navtext:active {color:beige;text-decoration:underline;}	
+
+a.navtexton {color: beige;font-family : Verdana, Arial, Helvetica, sans-serif; font-size : 12px; font-weight: bold;}	
+a.navtexton:visited {color: beige;}	
+a.navtexton:hover {color: beige;}	
+a.navtexton:active {color: beige;}
+
+td, .bodytext {font-family : Verdana, Arial, Helvetica, sans-serif; font-size : 12px; line-height : 15px;
+	font-weight: normal;
+	color: #000000;}	
+	
+PURS_Reported {background-color: #FFFFCC;}
+
+NOT_PURS_Reported {background-color: #00FF33;}
+
+#dropmenudiv{
+	position:absolute;
+	font:normal 9px/18px Verdana;
+	z-index:100;
+	border-top: 1px solid #000000;
+	border-right: 1px solid #000000;
+	border-bottom: 0 solid #000000;
+	border-left: 1px solid #000000;
+}
+
+#dropmenudiv a{
+	width: 100%;
+	display: block;
+	text-indent: 20px;
+	border-bottom: 1px solid black;
+	padding: 1px 0;
+	text-decoration: none;
+	color: #003366;
+	font-weight: bold;
+	background-repeat: no-repeat;
+	font-size:8pt;
+}
+
+#dropmenudiv a:hover{
+	background-color:#8DB33C; 	/*#EE2524;*/
+	color: #FFFFFF;
+	background-repeat: no-repeat;
+}

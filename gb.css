@@ -1,0 +1,81 @@
+a
+{
+font-size : 11px;
+  color: #0050A3;
+  font-weight: bold;
+  text-decoration: underline;
+}
+a:hover
+{
+  color: #0D9F09;
+  text-decoration: underline;
+}
+.footertext {
+	font-family : Arial, Sans-serif; 
+	font-size : 10px; 
+	color: 349339;
+}
+a.footertext {color: 349339; font-weight: normal;}	
+a.footertext:visited {color: 349339;}	
+a.footertext:hover {color: 349339;}	
+a.footertext:active {color: 349339;}	
+
+td,.bodytext {
+	font-family : Arial, Sans-serif; 
+	font-size : 11px; 
+	color: 003399;
+	line-height: 15px;
+}
+a.bodytext {font-size : 11px;
+font-family : Arial, Sans-serif;
+  color: #0050A3;
+  font-weight: normal;
+  text-decoration: underline;
+  line-height: 21px;}	
+  
+a.bodytext:visited {color: 003399;}	
+a.bodytext:hover {color: 349339;}	
+a.bodytext:active {color: 003399;}	
+
+a.nutritionfacts {font-size : 13px;
+font-family : Arial, Sans-serif;
+  color: #0050A3;
+  font-weight: normal;
+  text-decoration: underline;
+  line-height: 21px;}	
+a.nutritionfacts:visited {color: 003399;}	
+a.nutritionfacts:hover {color: 349339;}	
+a.nutritionfacts:active {color: 003399;}
+
+H1 {
+	font-family : Arial, Sans-serif; 
+	font-size : 14px; 
+	color: 003399;
+	display:inline;
+}
+H2 {
+	font-family : Arial, Sans-serif; 
+	font-size : 14px; 
+	color: 003399;
+	display:inline;
+}
+.smalltext {
+	font-family : Arial, Sans-serif; 
+	font-size : 10px; 
+	color: 003399;
+	line-height: 12px;
+}
+
+.ingredienttext {
+	font-family : Arial, Sans-serif; 
+	font-size : 11px; 
+	color: 003399;
+	line-height: 12px;
+}
+.popupheader {
+	font-family : Arial, Sans-serif; 
+	font-size : 16px; 
+	color: 004FA1;
+	line-height: 18px;
+	 font-weight: bold;
+}
