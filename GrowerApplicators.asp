@@ -52,7 +52,7 @@ END IF
 
 'Initialize Form Fields
 DIM formSupervisor, formLicenseNo, formActive, lGrowerID
-formSupervisor = Request.Form.Item("supervisor")
+formSupervisor = Replace(Request.Form.Item("supervisor"),","," &")
 formLicenseNo = Request.Form.Item("licenseno")
 formActive = Request.Form.Item("Active")
 

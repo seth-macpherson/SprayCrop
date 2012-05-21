@@ -847,13 +847,15 @@ response.write("<br>--" & VarietyID & "<br>")
 	sql = sql & " SELECT insertid = SCOPE_IDENTITY()"
 
 	DIM newID
+  '  Response.Write(sql)
+  'response.end
 	Set rs = conn.execute(sql)
 	newID = rs(0)
 	sql = ""
 	For Each targetID In ArrayTargetIDs
 		sql = sql & " INSERT INTO dbo.SprayRecordTargets (SprayRecordID, TargetID) VALUES (" & newID & "," & targetID & ") "
 	Next
-	Response.Write(sql)
+  'Response.Write(sql)
 	Set rs = conn.execute(sql)
 	'sql = "SELECT Sum(RateAcre) AS OverAppSeason FROM SprayRecord LEFT JOIN SprayList ON SprayRecord.ProductID = SprayList.SprayListID WHERE SprayRecord.GrowerID= " & GrowerID & " AND SprayRecord.Location = '" & EscapeQuotes(Location) & "' AND  SprayRecord.ProductID= " & SprayListID
 

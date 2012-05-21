@@ -200,7 +200,7 @@ ELSE
 END IF
 
 
-' Call FormDataDump("True", False)
+'Call FormDataDump("True", False)
 
 'formApplicatorLicenseOption = Request.Form.Item("ApplicatorLicenseOptions")
 'urlApplicatorLicense=Request.QueryString("ApplicatorLicense")
@@ -640,33 +640,30 @@ rem as long as one of the other lines has selected product
 		'formTargetList(5) = {'formTargetID','formTargetID1',formTargetID2'}
 
 		For Each tmpElement In Request.Form
-			Response.Write("<br />ELEMENT: " + tmpElement + " <br>")
-			If InStr(tmpElement,"TargetID") > 0 Then
-				formTargets = Split(Request.Form(tmpElement),",")
-				If UBound(formTargets) > 0 Then
-					elementPosition = Right(tmpElement,1)
-					If Not IsNumeric(elementPosition) Then
-						elementPosition = ""
-					End If
-					Response.Write("Element Pos: " + elementPosition)
-					formAcresTreated = Request.Form("AcresTreated" + elementPosition)
-					formRateAcre = Request.Form("RateAcre" + elementPosition)
-					tmpSprayList = Split(Request.Form("SprayListID" + elementPosition),"|")
-					If UBound(tmpSprayList) > 0 Then
-						formSprayListID = tmpSprayList(0)
-					Else
-						formSprayListID = "ABC"
-					End If
-					formIFPRating = Request.Form("FIFPRating" + elementPosition)
-
-					urlSprayRecordID = InsertSprayRecord2(formPackerID,formGrowerID,formSprayStartDate,formTimeFinishedSpraying,formSprayEndDate,formCropID,formVarietyID,formBartlet,formStageID,formLocation,formMethodID,formAcresTreated,formRateAcre,formSprayListID,formIFPRating,formTargets,formHarvestDate,formComments,formWeather,formApplicator,formApplicatorLicense,formAdministrator,formSupervisor,formLicenseNumber,formChemicalSupplier,formRecommendedBy)
-					'For Each selectedTarget In formTargets
-					'Next
+			If InStr(tmpElement,"SprayListID") > 0 and Request.Form(tmpElement) <> "|||" Then
+				Response.Write("<br />ELEMENT: " + tmpElement + " <br>")
+				elementPosition = Right(RTrim(tmpElement),1)
+				If Not IsNumeric(elementPosition) Then
+					elementPosition = ""
 				End If
+				Response.Write("Element Pos: " + elementPosition)
+				formTargets      = Split(Request.Form("TargetID" + elementPosition),",")
+				formAcresTreated = Request.Form("AcresTreated" + elementPosition)
+				formRateAcre     = Request.Form("RateAcre" + elementPosition)
+				tmpSprayList     = Split(Request.Form("SprayListID" + elementPosition),"|")
+				If UBound(tmpSprayList) > 0 Then
+					formSprayListID = tmpSprayList(0)
+				Else
+					formSprayListID = "ABC"
+				End If
+				formIFPRating = Request.Form("FIFPRating" + elementPosition)
+
+				urlSprayRecordID = InsertSprayRecord2(formPackerID,formGrowerID,formSprayStartDate,formTimeFinishedSpraying,formSprayEndDate,formCropID,formVarietyID,formBartlet,formStageID,formLocation,formMethodID,formAcresTreated,formRateAcre,formSprayListID,formIFPRating,formTargets,formHarvestDate,formComments,formWeather,formApplicator,formApplicatorLicense,formAdministrator,formSupervisor,formLicenseNumber,formChemicalSupplier,formRecommendedBy)
+				Response.Write "new id: " & urlSprayRecordID
 			End If
 		Next
 
-
+    'response.end
 
 
 '		Response.Redirect("enterspraydata.asp?success=1&AcresTreated=" &  formAcresTreated  & "&GrowerID=" & formGrowerID & "&SprayStartDate="& formSprayStartDate & "&StageID=" & formStageID & "&MethodID=" & formMethodID & "&Location=" & replace(formLocation,"&","%26") & "&SprayEndDate=" & formSprayEndDate  & "&CropID=" & formCropID& "&VarietyID=" & formVarietyID &  "&Applicator=" &  formApplicator & "&ApplicatorLicense=" &  formApplicatorLicense & "&Administrator=" &  formAdministrator & "&Supervisor=" &  formSupervisor & "&LicenseNumber=" &  formLicenseNumber& "&ChemicalSupplier=" &  formChemicalSupplier & "&RecommendedBy=" &  formRecommendedBy)
@@ -781,7 +778,7 @@ END IF%>
 <font color="990000"><strong>Success! Please see record below.</strong></font>
 <%END IF %>
 <%'if not formAdding then%>
-<!--- <a href="enterspraydata.asp?adding=1"><strong>Add SprayRecord</strong></a><br><br> ---></td>
+<!-- <a href="enterspraydata.asp?adding=1"><strong>Add SprayRecord</strong></a><br><br> --></td>
 <%'end if%>
 </tr>
 <tr>
@@ -1327,7 +1324,7 @@ rem window.open() was pu_spraylist_list.asp
 
 <tr>
 <td class="bodytext">1)</td>
-<td>*<SELECT name="SprayListID" style="background-color:beige" onchange="javascript: displaySprayListData();">
+<td nowrap="nowrap">*<SELECT name="SprayListID" style="background-color:beige" onchange="javascript: displaySprayListData();">
 <option value="|||">---SELECT A PRODUCT---</option>
 <%
 
@@ -1379,7 +1376,7 @@ end if
 <td><span class="bodytext"><input type="text" style="background-color:beige" name="AcresTreated" value="<%=formAcresTreated%>" size="5" maxlength="38" class="bodytext" onchange="javascript:calculateTotal();prefilAcres();"></span></td>
 <td><span class="bodytext"><input type="text" value="<%=formRateAcre%>" style="background-color:beige" name="RateAcre" size="5" maxlength="38" class="bodytext" onchange="javascript:calculateTotal();"></span></td>
 <td nowrap class="bodytext"><input type="text" value="<%=formTotalMaterialApplied%>" style="background-color:beige" name="TotalMaterialApplied" size="5" maxlength="11" class="bodytext" onchange="javascript:document.frmadd.RateAcre.value=0;calculateTotal();"></td>
-<td bgcolor="cccccc" nowrap class="bodytext"><!--- <input type="text" value="<%=formIFPRating%>" name="IFPRating"  class="bodytext" size="8" maxlength="50"> --->
+<td bgcolor="cccccc" nowrap class="bodytext"><!-- <input type="text" value="<%=formIFPRating%>" name="IFPRating"  class="bodytext" size="8" maxlength="50"> -->
 
 <%
 	set rsSelectTarget = GetActiveTarget()
@@ -1414,10 +1411,10 @@ END IF
 </tr>
 
 
-<!--- ABILITY TO ENTER 5 MORE RECORDS ON INSERT --->
+<!-- ABILITY TO ENTER 5 MORE RECORDS ON INSERT -->
 <%IF urlSprayRecordID=0 and thisCropID>0 THEN%>
 
-<!--- ADDITIONAL RECORD 1 --->
+<!-- ADDITIONAL RECORD 1 -->
 <tr>
 <td class="bodytext">2)</td>
 
@@ -1453,7 +1450,7 @@ end if
 <td ><span class="bodytext"><input type="text" style="background-color:beige" name="AcresTreated1" value="<%=formAcresTreated1%>" size="5" maxlength="38" class="bodytext" onchange="javascript:calculateTotal1();"></span></td>
 <td ><span class="bodytext"><input type="text" value="<%=formRateAcre1%>" style="background-color:beige" name="RateAcre1" size="5" maxlength="38" class="bodytext" onchange="javascript:calculateTotal1();"></span></td>
 <td  nowrap class="bodytext"><input type="text" value="<%=formTotalMaterialApplied1%>" style="background-color:beige" name="TotalMaterialApplied1" size="5" maxlength="11" class="bodytext" onchange="javascript:document.frmadd.RateAcre1.value=0;calculateTotal1();" ></td>
-<td bgcolor="cccccc" nowrap class="bodytext"><!--- <input type="text" value="<%=formIFPRating1%>" name="IFPRating1"  class="bodytext" size="8" maxlength="50"> --->
+<td bgcolor="cccccc" nowrap class="bodytext"><!-- <input type="text" value="<%=formIFPRating1%>" name="IFPRating1"  class="bodytext" size="8" maxlength="50"> -->
 <select name="TargetID1" multiple="multiple" size="5" style="background-color:beige;">
 <!-- <option value="">---TARGET---</option> -->
 <%
@@ -1484,7 +1481,7 @@ END IF
 </tr>
 
 
-<!--- ADDITIONAL RECORD 2 --->
+<!-- ADDITIONAL RECORD 2 -->
 <tr>
 <td class="bodytext">3)</td>
 
@@ -1520,7 +1517,7 @@ end if
 <td ><span class="bodytext"><input type="text" style="background-color:beige" name="AcresTreated2" value="<%=formAcresTreated2%>" size="5" maxlength="38" class="bodytext" onchange="javascript:calculateTotal2();"></span></td>
 <td ><span class="bodytext"><input type="text" value="<%=formRateAcre2%>" style="background-color:beige" name="RateAcre2" size="5" maxlength="38" class="bodytext" onchange="javascript:calculateTotal2();"></span></td>
 <td  nowrap class="bodytext"><input type="text" value="<%=formTotalMaterialApplied2%>" style="background-color:beige" name="TotalMaterialApplied2" size="5" maxlength="11" class="bodytext" onchange="javascript:document.frmadd.RateAcre2.value=0;calculateTotal2();" ></td>
-<td bgcolor="cccccc" nowrap class="bodytext"><!--- <input type="text" value="<%=formIFPRating2%>" name="IFPRating2"  class="bodytext" size="8" maxlength="50"> --->
+<td bgcolor="cccccc" nowrap class="bodytext"><!-- <input type="text" value="<%=formIFPRating2%>" name="IFPRating2"  class="bodytext" size="8" maxlength="50"> -->
 <select name="TargetID2" multiple="multiple" size="5" style="background-color:beige;">
 <!-- <option value="">---TARGET---</option> -->
 <%
@@ -1551,7 +1548,7 @@ END IF
 </tr>
 
 
-<!--- ADDITIONAL RECORD 3 --->
+<!-- ADDITIONAL RECORD 3 -->
 <tr>
 <td class="bodytext">4)</td>
 
@@ -1586,7 +1583,7 @@ end if
 <td ><span class="bodytext"><input type="text" style="background-color:beige" name="AcresTreated3" value="<%=formAcresTreated3%>" size="5" maxlength="38" class="bodytext" onchange="javascript:calculateTotal3();"></span></td>
 <td ><span class="bodytext"><input type="text" value="<%=formRateAcre3%>" style="background-color:beige" name="RateAcre3" size="5" maxlength="38" class="bodytext" onchange="javascript:calculateTotal3();"></span></td>
 <td  nowrap class="bodytext"><input type="text" value="<%=formTotalMaterialApplied3%>" style="background-color:beige" name="TotalMaterialApplied3" size="5" maxlength="11" class="bodytext" onchange="javascript:document.frmadd.RateAcre3.value=0;calculateTotal3();" ></td>
-<td bgcolor="cccccc" nowrap class="bodytext"><!--- <input type="text" value="<%=formIFPRating3%>" name="IFPRating3"  class="bodytext" size="8" maxlength="50"> --->
+<td bgcolor="cccccc" nowrap class="bodytext"><!-- <input type="text" value="<%=formIFPRating3%>" name="IFPRating3"  class="bodytext" size="8" maxlength="50"> -->
 <select name="TargetID3" multiple="multiple" size="5" style="background-color:beige;">
 <!-- <option value="">---TARGET---</option> -->
 <%
@@ -1617,7 +1614,7 @@ END IF
 </tr>
 
 
-<!--- ADDITIONAL RECORD 4 --->
+<!-- ADDITIONAL RECORD 4 -->
 <tr>
 <td class="bodytext">5)</td>
 
@@ -1652,7 +1649,7 @@ end if
 <td ><span class="bodytext"><input type="text" style="background-color:beige" name="AcresTreated4" value="<%=formAcresTreated4%>" size="5" maxlength="38" class="bodytext" onchange="javascript:calculateTotal4();"></span></td>
 <td ><span class="bodytext"><input type="text" value="<%=formRateAcre4%>" style="background-color:beige" name="RateAcre4" size="5" maxlength="38" class="bodytext" onchange="javascript:calculateTotal4();"></span></td>
 <td  nowrap class="bodytext"><input type="text" value="<%=formTotalMaterialApplied4%>" style="background-color:beige" name="TotalMaterialApplied4" size="5" maxlength="11" class="bodytext" onchange="javascript:document.frmadd.RateAcre4.value=0;calculateTotal4();" ></td>
-<td bgcolor="cccccc" nowrap class="bodytext"><!--- <input type="text" value="<%=formIFPRating4%>" name="IFPRating4"  class="bodytext" size="8" maxlength="50"> --->
+<td bgcolor="cccccc" nowrap class="bodytext"><!-- <input type="text" value="<%=formIFPRating4%>" name="IFPRating4"  class="bodytext" size="8" maxlength="50"> -->
 <select name="TargetID4" multiple="multiple" size="5" style="background-color:beige;">
 <!-- <option value="">---TARGET---</option> -->
 <%
@@ -1684,7 +1681,7 @@ END IF
 </tr>
 
 
-<!--- ADDITIONAL RECORD 5 --->
+<!-- ADDITIONAL RECORD 5 -->
 <tr>
 <td class="bodytext">6)</td>
 
@@ -1719,7 +1716,7 @@ end if
 <td ><span class="bodytext"><input type="text" style="background-color:beige" name="AcresTreated5" value="<%=formAcresTreated5%>" size="5" maxlength="38" class="bodytext" onchange="javascript:calculateTotal5();"></span></td>
 <td ><span class="bodytext"><input type="text" value="<%=formRateAcre5%>" style="background-color:beige" name="RateAcre5" size="5" maxlength="38" class="bodytext" onchange="javascript:calculateTotal5();"></span></td>
 <td  nowrap class="bodytext"><input type="text" value="<%=formTotalMaterialApplied5%>" style="background-color:beige" name="TotalMaterialApplied5" size="5" maxlength="11" class="bodytext" onchange="javascript:document.frmadd.RateAcre5.value=0;calculateTotal5();" ></td>
-<td bgcolor="cccccc" nowrap class="bodytext"><!--- <input type="text" value="<%=formIFPRating5%>" name="IFPRating5"  class="bodytext" size="8" maxlength="50"> --->
+<td bgcolor="cccccc" nowrap class="bodytext"><!-- <input type="text" value="<%=formIFPRating5%>" name="IFPRating5"  class="bodytext" size="8" maxlength="50"> -->
 <select name="TargetID5" multiple="multiple" size="5" style="background-color:beige;">
 <!-- <option value="">---TARGET---</option> -->
 <%
@@ -1870,8 +1867,10 @@ end if%>
 		End If
 	Loop
 	%>
-	<br>
-	Applicator: <%=rs.Fields("Applicator")%><br>
+  <br />
+  Applicator(s): <br />
+  &mdash; <%= replace(left(rs.Fields("Applicator"),len(rs.Fields("Applicator"))-1),";","<br />&mdash;")%>
+  <br />
 	License: <%=rs.Fields("ApplicatorLicense")%><br>
 	Supervisor: <%=rs.Fields("Supervisor")%><br>	Supervisor License: <%=rs.Fields("LicenseNumber")%><br>
 	Chemical Supplier: <%=rs.Fields("ChemicalSupplier")%><br>

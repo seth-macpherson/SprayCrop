@@ -632,7 +632,9 @@ end if %>
 <br><strong>Packer: </strong> <%=rs.Fields("PackerNumber")%>
 <%end if%>
 <%if rs.Fields("Applicator") <> "" then%>
-<br><strong>Applicator: </strong> <%=rs.Fields("Applicator")%><br /><strong>License:</strong> <%=rs.Fields("ApplicatorLicense")%>
+<br><strong>Applicator(s): </strong><br />
+&mdash; <%= replace(left(rs.Fields("Applicator"),len(rs.Fields("Applicator"))-1),";","<br />&mdash;")%>
+<br /><strong>License:</strong> <%=rs.Fields("ApplicatorLicense")%>
 <%end if%>
 <%if rs.Fields("RecommendedBy") <> "" then%>
 <br><strong>Recommended By: </strong> <%=rs.Fields("RecommendedBy")%>

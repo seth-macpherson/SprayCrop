@@ -118,6 +118,41 @@ table {
 	Dim i
 	i = 0
 
+	Dim target_rs, targets, target_dictionary, spray_rec_id,a
+
+	Set target_dictionary = Server.CreateObject("Scripting.Dictionary")
+
+	IF not rs.EOF THEN
+		DO WHILE not rs.EOF
+		spray_rec_id = rs.Fields("SprayRecordID")
+		set target_rs = conn.execute("SELECT t.target FROM Targets t INNER JOIN SprayRecordTargets srt ON t.targetID = srt.targetID WHERE srt.SprayRecordID = " & spray_rec_id)
+
+		targets = ""
+		Do While Not target_rs.EOF
+	    	targets = targets & target_rs.Fields("Target")
+			target_rs.MoveNext
+			If target_rs.EOF = False Then
+	    	targets = targets & ", "
+			End If
+		Loop
+
+		if target_dictionary.Exists(spray_rec_id) = false then
+			target_dictionary.Add spray_rec_id, targets
+		end if
+
+		set targets = nothing
+		set spray_rec_id = nothing
+		set target_rs = nothing
+
+		rs.MoveNext
+		LOOP
+
+	END IF
+
+	' go back to the start of the rs
+	rs.MoveFirst
+
+
 dim j,thisGrowerID,thisSprayDate,tablestarted
 i = 0
 j = 0
@@ -195,7 +230,8 @@ IF not rs.EOF THEN
 			 : <%=rs.Fields("TimeFinishedSpraying")%> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 <br><strong>Location: </strong> <%=rs.Fields("Location")%>
 <%			if rs.Fields("Applicator") <> "" then%>
-<br><strong>Applicator: </strong> <%=rs.Fields("Applicator")%> &nbsp;#<%=rs.Fields("ApplicatorLicense")%>
+<br><strong>Applicator(s): </strong><br />
+&mdash; <%= replace(left(rs.Fields("Applicator"),len(rs.Fields("Applicator"))-1),";","<br />&mdash;")%>
 <%			end if
 			if rs.Fields("ChemicalSupplier") <> "" then%>
 <br><strong>Chemical Supplier: </strong> <%=rs.Fields("ChemicalSupplier")%> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -229,7 +265,13 @@ PHI: <%=rs.Fields("PHI")%>
 		end if %>
 </td>
 <td><%if rs.Fields("Bartlet") then response.write("Y") else response.write("N") end if%>&nbsp;</td>
-<td><%=rs.Fields("Stage")%></td><td><%=rs.Fields("Weather")%>&nbsp;</td><td><%=rs.Fields("Target")%></td>
+<td><%=rs.Fields("Stage")%></td><td><%=rs.Fields("Weather")%>&nbsp;</td>
+<td>
+<% spray_rec_id = rs.Fields("SprayRecordID") %>
+<%= target_dictionary.Item(spray_rec_id) %>
+<%'=rs.Fields("Target")%>
+
+</td>
 <td>
 <%		if isDate(rs.Fields("HarvestDate")) then
 			response.write(month(rs.Fields("HarvestDate")) & "/" & day(rs.Fields("HarvestDate")) & "/" & right(year(rs.Fields("HarvestDate")),2))
